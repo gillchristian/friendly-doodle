@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import {Grid, Typography} from '@material-ui/core'
 
 const Header: React.SFC = () => (
   <Grid container>

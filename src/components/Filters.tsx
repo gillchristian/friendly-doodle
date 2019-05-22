@@ -1,16 +1,16 @@
-import * as React from 'react';
-import {Grid, Input, Button} from '@material-ui/core';
-import {format} from 'date-fns';
+import * as React from 'react'
+import {Grid, Input, Button} from '@material-ui/core'
+import {format} from 'date-fns'
 
-import {DateFormatInput} from 'material-ui-next-pickers';
+import {DateFormatInput} from 'material-ui-next-pickers'
 
 interface Props {
-  min: Date;
-  max: Date;
-  from: Date;
-  to: Date;
-  setFrom: (arg: Date) => void;
-  setTo: (arg: Date) => void;
+  min: Date
+  max: Date
+  from: Date
+  to: Date
+  setFrom: (arg: Date) => void
+  setTo: (arg: Date) => void
 }
 
 const Filters: React.SFC<Props> = ({min, max, from, to, setFrom, setTo}) => {
@@ -38,7 +38,7 @@ const Filters: React.SFC<Props> = ({min, max, from, to, setFrom, setTo}) => {
         />
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

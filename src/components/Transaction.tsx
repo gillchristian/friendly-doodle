@@ -1,39 +1,48 @@
-import * as React from 'react';
+import * as React from 'react'
 import {
-  Grid,
-  Typography,
   withStyles,
   WithStyles,
   createStyles,
-} from '@material-ui/core';
-import {format} from 'date-fns';
+  Theme,
+  Grid,
+  Typography,
+  Tooltip,
+} from '@material-ui/core'
+import {format} from 'date-fns'
 
-import * as types from '../model';
-import {numColor, currencySymbol} from '../utils';
+import * as types from '../model'
+import {numColor, currencySymbol} from '../utils'
 
-import Amount from './Amount';
+import Amount from './Amount'
 
-const styles = createStyles({
-  root: {
-    marginBottom: 15,
-  },
-  date: {
-    lineHeight: 1.2,
-  },
-});
+const styles = (t: Theme) =>
+  createStyles({
+    root: {
+      marginBottom: 15,
+    },
+    date: {
+      lineHeight: 1.2,
+    },
+    tooltip: {background: t.palette.secondary.dark},
+  })
 
-type Props = types.Transaction & WithStyles<typeof styles>;
+type Props = types.Transaction & WithStyles<typeof styles>
 
 const Transaction: React.SFC<Props> = ({
   transactionDate,
   category,
   balance,
   currency,
-  description,
+  originalDesc,
   classes,
 }) => (
-  <Grid container justify="space-between" className={classes.root}>
-    <Grid item>
+  <Grid
+    container
+    alignItems="center"
+    justify="space-between"
+    className={classes.root}
+  >
+    <Grid xs={1}>
       <Typography variant="subtitle2" className={classes.date} align="center">
         {format(transactionDate, 'MMM')}
       </Typography>
@@ -41,7 +50,15 @@ const Transaction: React.SFC<Props> = ({
         {format(transactionDate, 'DD')}
       </Typography>
     </Grid>
-    <Grid item>
+    <Grid item xs={9}>
+      <Tooltip title={originalDesc} classes={classes}>
+        <Typography variant="subtitle1">
+          {originalDesc.slice(0, 50)}
+          {originalDesc.length > 50 && '…'}
+        </Typography>
+      </Tooltip>
+    </Grid>
+    <Grid item xs={2}>
       <Typography variant="subtitle1" align="right">
         <Amount amount={balance.debit} currency={currency} />
       </Typography>
@@ -51,6 +68,6 @@ const Transaction: React.SFC<Props> = ({
       </Typography>
     </Grid>
   </Grid>
-);
+)
 
-export default withStyles(styles)(Transaction);
+export default withStyles(styles)(Transaction)

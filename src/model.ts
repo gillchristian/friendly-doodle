@@ -1,5 +1,5 @@
-import match from '@housinganywhere/match';
-import {object} from 'prop-types';
+import match from '@housinganywhere/match'
+import {object} from 'prop-types'
 
 export type Category =
   | 'Groceries'
@@ -12,7 +12,6 @@ export type Category =
   | 'Reimbursement'
   | 'Incoming'
   | 'Cash'
-  | 'CashBack'
   | 'Study'
   | 'Health'
   | 'SelfCare'
@@ -25,53 +24,52 @@ export type Category =
   | 'CreditCard'
   | 'PayPal'
   | 'Others'
-  | 'Unknown';
+  | 'Unknown'
 
-export type Currency = 'EUR' | 'Other';
+export type Currency = 'EUR' | 'Other'
 
 interface Balance {
-  before: number;
-  after: number;
-  debit: number;
+  before: number
+  after: number
+  debit: number
 }
 
-export interface TransactionRaw {
-  acc: string;
-  description: string;
-  currency: Currency;
-  transactionDate: string;
-  valueDate: string;
-  balance: Balance;
-  category: Category;
+export interface TransactionBase {
+  acc: string
+  description: string | null
+  originalDesc: string
+  currency: Currency
+  balance: Balance
+  category: Category
 }
 
-export interface Transaction {
-  acc: string;
-  description: string;
-  currency: Currency;
-  transactionDate: Date;
-  valueDate: Date;
-  balance: Balance;
-  category: Category;
+export interface TransactionRaw extends TransactionBase {
+  transactionDate: string
+  valueDate: string
 }
 
-export type ByCategory = {[C in Category]: Transaction[]};
+export interface Transaction extends TransactionBase {
+  transactionDate: Date
+  valueDate: Date
+}
+
+export type ByCategory = {[C in Category]: Transaction[]}
 
 export const groupByCategory = (ts: Transaction[]): ByCategory =>
   ts.reduce((acc, t) => {
     if (acc[t.category]) {
-      acc[t.category].push(t);
+      acc[t.category].push(t)
     } else {
-      acc[t.category] = [t];
+      acc[t.category] = [t]
     }
-    return acc;
-  }, byCategory());
+    return acc
+  }, byCategory())
 
 export const normalize = (ts: TransactionRaw): Transaction => ({
   ...ts,
   transactionDate: new Date(ts.transactionDate),
   valueDate: new Date(ts.valueDate),
-});
+})
 
 export const byCategory = (): ByCategory => ({
   Groceries: [],
@@ -84,7 +82,6 @@ export const byCategory = (): ByCategory => ({
   Reimbursement: [],
   Incoming: [],
   Cash: [],
-  CashBack: [],
   Study: [],
   Health: [],
   SelfCare: [],
@@ -98,11 +95,12 @@ export const byCategory = (): ByCategory => ({
   PayPal: [],
   Others: [],
   Unknown: [],
-});
+})
 
 export const categories: ReadonlyArray<Category> = [
   'Salary',
   'Incoming',
+  'Reimbursement',
   'Rent',
   'Groceries',
   'EatOut',
@@ -119,13 +117,11 @@ export const categories: ReadonlyArray<Category> = [
   'Entertainment',
   'Clothes',
   'Bikes',
-  'Reimbursement',
   'PayPal',
   'Others',
   'Internal',
-  'CashBack',
   'Unknown',
-];
+]
 
 export const categoryLabel = match<Category, string>({
   Groceries: () => 'Groceries',
@@ -138,7 +134,6 @@ export const categoryLabel = match<Category, string>({
   Reimbursement: () => 'Reimbursement',
   Incoming: () => 'Incoming',
   Cash: () => 'Cash',
-  CashBack: () => 'Cash Back (?)',
   Study: () => 'Study',
   Health: () => 'Health',
   SelfCare: () => 'Self Care',
@@ -152,4 +147,4 @@ export const categoryLabel = match<Category, string>({
   PayPal: () => 'PayPal',
   Others: () => 'Others',
   Unknown: () => 'Unknown',
-});
+})

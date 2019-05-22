@@ -1,6 +1,6 @@
 import match from '@housinganywhere/match'
 
-import { Currency } from './model'
+import {Currency} from './model'
 
 type N = 'negative' | 'zero' | 'positive'
 
