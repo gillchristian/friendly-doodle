@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {render} from 'react-dom'
-import {Grid} from '@material-ui/core'
 
 import {transactions} from './data'
 import {normalize} from './model'

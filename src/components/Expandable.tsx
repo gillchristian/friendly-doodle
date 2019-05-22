@@ -6,11 +6,10 @@ import {
   WithStyles,
   createStyles,
   withStyles,
-  Theme,
 } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-const styles = (theme: Theme) =>
+const styles = () =>
   createStyles({
     content: {
       margin: `1.25rem 0`,

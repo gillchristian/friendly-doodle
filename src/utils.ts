@@ -1,4 +1,6 @@
+import {compose} from 'fp-ts/lib/function'
 import match from '@housinganywhere/match'
+import * as dateFns from 'date-fns'
 
 import {Currency} from './model'
 
@@ -13,9 +15,12 @@ export const nColor = match<N, string>({
   positive: () => 'green',
 })
 
-export const numColor = (n: number) => nColor(numToN(n))
+export const numColor = compose(nColor, numToN)
 
 export const currencySymbol = match<Currency, string>({
   EUR: () => '€',
   Other: () => '$',
 })
+
+export const isWithinRange = (from: Date, to: Date) => (date: Date) =>
+  dateFns.isWithinRange(date, from, to)

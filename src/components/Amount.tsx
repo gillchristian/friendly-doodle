@@ -1,13 +1,12 @@
 import * as React from 'react'
-import {Grid} from '@material-ui/core'
 
 import {Currency} from '../model'
 import {numColor, currencySymbol} from '../utils'
 
 interface Props {
   amount: number
-  colors?: boolean
   currency?: Currency
+  colors?: boolean
 }
 
 const EUR: Currency = 'EUR'

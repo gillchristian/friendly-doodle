@@ -1,5 +1,5 @@
+import {Lens} from 'monocle-ts'
 import match from '@housinganywhere/match'
-import {object} from 'prop-types'
 
 export type Category =
   | 'Groceries'
@@ -148,3 +148,9 @@ export const categoryLabel = match<Category, string>({
   Others: () => 'Others',
   Unknown: () => 'Unknown',
 })
+
+// lenses
+
+export const lens = {
+  transactionDate: Lens.fromProp<Transaction>()('transactionDate'),
+}

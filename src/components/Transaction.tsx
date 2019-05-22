@@ -10,8 +10,7 @@ import {
 } from '@material-ui/core'
 import {format} from 'date-fns'
 
-import * as types from '../model'
-import {numColor, currencySymbol} from '../utils'
+import {Transaction as ITransaction} from '../model'
 
 import Amount from './Amount'
 
@@ -26,11 +25,10 @@ const styles = (t: Theme) =>
     tooltip: {background: t.palette.secondary.dark},
   })
 
-type Props = types.Transaction & WithStyles<typeof styles>
+type Props = ITransaction & WithStyles<typeof styles>
 
 const Transaction: React.SFC<Props> = ({
   transactionDate,
-  category,
   balance,
   currency,
   originalDesc,

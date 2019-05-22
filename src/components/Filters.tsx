@@ -1,6 +1,5 @@
 import * as React from 'react'
-import {Grid, Input, Button} from '@material-ui/core'
-import {format} from 'date-fns'
+import {Grid} from '@material-ui/core'
 
 import {DateFormatInput} from 'material-ui-next-pickers'
 
